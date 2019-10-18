@@ -1,24 +1,38 @@
 package com.anttech.restFb.me;
 
-import com.anttech.restFb.Constants;
+import java.io.IOException;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
+import com.restfb.Parameter;
+import com.restfb.Version;
+import com.restfb.exception.FacebookException;
 import com.restfb.types.User;
 
 public class SimpleMeExample {
-	   public static void main(String[] args) {
-	         
-	        // Tạo đối tượng FacebookClient
-	        @SuppressWarnings("deprecation")
-			FacebookClient facebookClient= new DefaultFacebookClient(Constants.MY_ACCESS_TOKEN);
-	         
-	        // User là một class có sẵn của Restfb mô tả các thông tin của User
-	        // Trong tình huống này chúng ta biết trước dữ liệu trả về là User.
-	        User user = facebookClient.fetchObject("me", User.class);
-	         
-	        System.out.println("User="+ user);
-	        System.out.println("Name="+user.getName());
-	        System.out.println("Birthday= "+ user.getBirthday());
-	        System.out.println("Uid="+user.getId());
-	   }
+	public static User fetchFacebookUser(String accessToken) {
+
+		FacebookClient client = new DefaultFacebookClient(accessToken, Version.VERSION_2_5);
+		try {
+			User user = client.fetchObject("me", User.class, Parameter.with("fields",
+					"name,gender,birthday,hometown,first_name,birthday,email,education,languages,link,work" + ""));
+			if (user != null) {
+
+				return user;
+			}
+		} catch (FacebookException ex) {
+		}
+
+		return null;
+	}
+
+	public static void main(String[] args) throws IOException {
+		String accessToken = "EAAFywcc3psUBAEsdhNNPkVGZBZBZASG0egczWfWiMvxkBQpPF7uSPey0Q6H5GjUPXGwPsm3DAkMP7ek2LZB6ZC0lNlBJOl5KRU1wu9xiNo1ZA1RPmwnLG6EANER6TqeNm8aJOuvhwEwRtYzUVFTBgJeyBOlyOF2hZBYmZBC2PsBKV44Af6scjqxgBg0ZCtPVMNR4ZD";
+		User me = fetchFacebookUser(accessToken);
+		System.out.println(me.getName());
+		System.out.println(me.getHometownName());
+		System.out.println(me.getId());
+		System.out.println(me.getGender());
+		System.out.println(me.getLink());
+	}
+
 }
