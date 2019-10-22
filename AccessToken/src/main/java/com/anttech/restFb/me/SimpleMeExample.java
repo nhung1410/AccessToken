@@ -24,6 +24,12 @@ public class SimpleMeExample {
 
 		return null;
 	}
+	public void authUser()
+	{
+		String domain = "http://nhungtool.com/";
+		String app_Id = "407651573278405";
+		String authUrl = "";
+	}
 
 	public static void main(String[] args) throws IOException {
 		String accessToken = "EAAFywcc3psUBAEsdhNNPkVGZBZBZASG0egczWfWiMvxkBQpPF7uSPey0Q6H5GjUPXGwPsm3DAkMP7ek2LZB6ZC0lNlBJOl5KRU1wu9xiNo1ZA1RPmwnLG6EANER6TqeNm8aJOuvhwEwRtYzUVFTBgJeyBOlyOF2hZBYmZBC2PsBKV44Af6scjqxgBg0ZCtPVMNR4ZD";
